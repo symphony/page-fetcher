@@ -1,12 +1,18 @@
 const request = require('request');
 const fs = require('fs');
-const htmlFile = './index.html';
+const file = './index.html';
+
+const getFilesize = file => {
+  console.log(`Checking ${file} filesize..`);
+};
 
 const storeData = (data) => {
   if (data) console.log("Characters received:", data.length);
-  // fs.write(htmlFile);
+  fs.writeFile(file, data, {flag: "w"}, err => {
+    if (err) return console.log('error:', err);
+    console.log(`Written to ${file} successfully.Size: ${getFilesize(file)}`);
+  });
 };
-
 
 const downloadPage = (url, cb) => {
   request(url, (error, response, body) => {
