@@ -20,10 +20,9 @@ const writeToFile = (data, file) => {
 
 const downloadPage = (url, file) => {
   request(url, (error, response, body) => {
-    console.error("Error:", error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
-    if (!error) writeToFile(body, file);
+    console.log('statusCode:', response && response.statusCode);
+    if (error) return console.error("Error:", error);
+    writeToFile(body, file);
   });
 };
 
