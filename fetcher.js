@@ -4,8 +4,6 @@ const defaults = ['http://www.example.edu/', './downloaded/index.html'];
 const args = process.argv.slice(2, 4);
 const page = args[0] || defaults[0];
 const destination = args[1] || defaults[1];
-console.log("args:", args, "page:", page, "destination:", destination);
-
 
 const getFilesize = file => {
   console.log(`Checking '${file}' filesize..\n`);
@@ -22,10 +20,10 @@ const writeToFile = (data, file) => {
 
 const downloadPage = (url, file) => {
   request(url, (error, response, body) => {
-    if (error) return console.log('error:', error); // Print the error if one occurred
+    console.error("Error:", error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', body); // Print the HTML for the Google homepage.
-    writeToFile(body, file);
+    if (!error) writeToFile(body, file);
   });
 };
 
